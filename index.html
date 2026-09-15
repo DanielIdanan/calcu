@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Calculator</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="calculator">
+  <div id="display">0</div>
+
+  <div class="memory-row">
+    <button onclick="memoryClear()">MC</button>
+    <button onclick="memoryRecall()">MR</button>
+    <button onclick="memoryAdd()">M+</button>
+    <button onclick="memorySubtract()">M-</button>
+    <button onclick="memoryStore()">MS</button>
+    <button disabled>M&#8964;</button>
+  </div>
+
+  <div class="buttons">
+    <button class="key func" onclick="percent()">%</button>
+    <button class="key func" onclick="clearEntry()">CE</button>
+    <button class="key func" onclick="clearAll()">C</button>
+    <button class="key func" onclick="backspace()">&#9003;</button>
+
+    <button class="key func" onclick="reciprocal()">1/x</button>
+    <button class="key func" onclick="square()">x&sup2;</button>
+    <button class="key func" onclick="squareRoot()">&#8730;x</button>
+    <button class="key op" onclick="chooseOperator('/')">&divide;</button>
+
+    <button class="key" onclick="appendNumber('7')">7</button>
+    <button class="key" onclick="appendNumber('8')">8</button>
+    <button class="key" onclick="appendNumber('9')">9</button>
+    <button class="key op" onclick="chooseOperator('*')">&times;</button>
+
+    <button class="key" onclick="appendNumber('4')">4</button>
+    <button class="key" onclick="appendNumber('5')">5</button>
+    <button class="key" onclick="appendNumber('6')">6</button>
+    <button class="key op" onclick="chooseOperator('-')">&minus;</button>
+
+    <button class="key" onclick="appendNumber('1')">1</button>
+    <button class="key" onclick="appendNumber('2')">2</button>
+    <button class="key" onclick="appendNumber('3')">3</button>
+    <button class="key op" onclick="chooseOperator('+')">+</button>
+
+    <button class="key func" onclick="toggleSign()">&plusmn;</button>
+    <button class="key" onclick="appendNumber('0')">0</button>
+    <button class="key" onclick="appendDecimal()">.</button>
+    <button class="key equals" onclick="calculate()">=</button>
+  </div>
+</div>
+
+	<script src="event.js"></script>
+</body>
+</html>
