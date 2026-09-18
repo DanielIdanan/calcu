@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Calculator</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="calculator">
+  <div class="topbar">
+    <button class="menubtn" onclick="toggleMenu()">&#9776;</button>
+    <span class="title" id="modeTitle">Standard</span>
+    <button class="histbtn" onclick="toggleHistory()">&#128336;</button>
+  </div>
+
+  <div id="sidemenu" class="hidden">
+    <div class="menuitem" onclick="setMode('standard')">Standard</div>
+    <div class="menuitem" onclick="setMode('scientific')">Scientific</div>
+  </div>
+
+  <div id="expression"></div>
+  <div id="display">0</div>
+
+  <div id="sciToggles" class="sci-toggles hidden">
+    <span id="radBtn" onclick="toggleRad()">RAD</span>
+    <span id="feBtn" onclick="toggleFE()">F-E</span>
+  </div>
+
+  <div class="memory-row">
+    <button onclick="memoryClear()">MC</button>
+    <button onclick="memoryRecall()">MR</button>
+    <button onclick="memoryAdd()">M+</button>
+    <button onclick="memorySubtract()">M-</button>
+    <button onclick="memoryStore()">MS</button>
+    <button disabled>M&#8964;</button>
+  </div>
+
+  <div id="sciDropdowns" class="sci-dropdowns hidden">
+    <div class="dropdown" onclick="toggleTrig()">
+      <span>&#9651; Trigonometry</span> <span>&#9662;</span>
+      <div id="trigList" class="dropdownlist grid hidden">
+        <div id="trig2nd" onclick="event.stopPropagation(); toggleTrigSecond()">2<sup>nd</sup></div>
+        <div onclick="event.stopPropagation(); trigCompute('sin')">sin</div>
+        <div onclick="event.stopPropagation(); trigCompute('cos')">cos</div>
+        <div onclick="event.stopPropagation(); trigCompute('tan')">tan</div>
+        <div id="trigHyp" onclick="event.stopPropagation(); toggleHyp()">hyp</div>
+        <div onclick="event.stopPropagation(); trigCompute('sec')">sec</div>
+        <div onclick="event.stopPropagation(); trigCompute('csc')">csc</div>
+        <div onclick="event.stopPropagation(); trigCompute('cot')">cot</div>
+      </div>
+    </div>
+    <div class="dropdown" onclick="toggleFunc()">
+      <span>f Function</span> <span>&#9662;</span>
+      <div id="funcList" class="dropdownlist grid func hidden">
+        <div onclick="event.stopPropagation(); sciFunc('abs')">|x|</div>
+        <div onclick="event.stopPropagation(); sciFunc('floor')">&lfloor;x&rfloor;</div>
+        <div onclick="event.stopPropagation(); sciFunc('ceil')">&lceil;x&rceil;</div>
+        <div onclick="event.stopPropagation(); randFunc()">rand</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="buttons" id="standardButtons">
+    <button class="key func" onclick="percent()">%</button>
+    <button class="key func" onclick="clearEntry()">CE</button>
+    <button class="key func" onclick="clearAll()">C</button>
+    <button class="key func" onclick="backspace()">&#9003;</button>
+    <button class="key func" onclick="reciprocal()">1/x</button>
+    <button class="key func" onclick="square()">x&sup2;</button>
+    <button class="key func" onclick="squareRoot()">&#8730;x</button>
+    <button class="key op" onclick="chooseOperator('/')">&divide;</button>
+    <button class="key" onclick="appendNumber('7')">7</button>
+    <button class="key" onclick="appendNumber('8')">8</button>
+    <button class="key" onclick="appendNumber('9')">9</button>
+    <button class="key op" onclick="chooseOperator('*')">&times;</button>
+    <button class="key" onclick="appendNumber('4')">4</button>
+    <button class="key" onclick="appendNumber('5')">5</button>
+    <button class="key" onclick="appendNumber('6')">6</button>
+    <button class="key op" onclick="chooseOperator('-')">&minus;</button>
+    <button class="key" onclick="appendNumber('1')">1</button>
+    <button class="key" onclick="appendNumber('2')">2</button>
+    <button class="key" onclick="appendNumber('3')">3</button>
+    <button class="key op" onclick="chooseOperator('+')">+</button>
+    <button class="key func" onclick="toggleSign()">&plusmn;</button>
+    <button class="key" onclick="appendNumber('0')">0</button>
+    <button class="key" onclick="appendDecimal()">.</button>
+    <button class="key equals" onclick="calculate()">=</button>
+  </div>
+
+  <div class="buttons sci hidden" id="sciButtons">
+    <button class="key func" onclick="sciSecond()">2<sup>nd</sup></button>
+    <button class="key func" onclick="insertConst('pi')">&pi;</button>
+    <button class="key func" onclick="insertConst('e')">e</button>
+    <button class="key func" onclick="clearAll()">C</button>
+    <button class="key func" onclick="backspace()">&#9003;</button>
+    <button class="key func" onclick="square()">x&sup2;</button>
+    <button class="key func" onclick="reciprocal()">1/x</button>
+    <button class="key func" onclick="absVal()">|x|</button>
+    <button class="key func" onclick="expFunc()">exp</button>
+    <button class="key op" onclick="chooseOperator('mod')">mod</button>
+    <button class="key func" onclick="cubeRoot()">&#8731;x</button>
+    <button class="key" onclick="appendOpen()">(</button>
+    <button class="key" onclick="appendClose()">)</button>
+    <button class="key func" onclick="factorial()">n!</button>
+    <button class="key op" onclick="chooseOperator('/')">&divide;</button>
+    <button class="key func" onclick="power()">x<sup>y</sup></button>
+    <button class="key" onclick="appendNumber('7')">7</button>
+    <button class="key" onclick="appendNumber('8')">8</button>
+    <button class="key" onclick="appendNumber('9')">9</button>
+    <button class="key op" onclick="chooseOperator('*')">&times;</button>
+    <button class="key func" onclick="powerOf10()">10<sup>x</sup></button>
+    <button class="key" onclick="appendNumber('4')">4</button>
+    <button class="key" onclick="appendNumber('5')">5</button>
+    <button class="key" onclick="appendNumber('6')">6</button>
+    <button class="key op" onclick="chooseOperator('-')">&minus;</button>
+    <button class="key func" onclick="logFunc()">log</button>
+    <button class="key" onclick="appendNumber('1')">1</button>
+    <button class="key" onclick="appendNumber('2')">2</button>
+    <button class="key" onclick="appendNumber('3')">3</button>
+    <button class="key op" onclick="chooseOperator('+')">+</button>
+    <button class="key func" onclick="lnFunc()">ln</button>
+    <button class="key func" onclick="toggleSign()">&plusmn;</button>
+    <button class="key" onclick="appendNumber('0')">0</button>
+    <button class="key" onclick="appendDecimal()">.</button>
+    <button class="key equals" onclick="calculate()">=</button>
+  </div>
+
+  <div id="history" class="hidden">
+    <div id="historyList"><p class="empty">There's no history yet.</p></div>
+    <button class="clearhist" onclick="clearHistory()">Clear history</button>
+  </div>
+</div>
+<script src="event.js"></script>
+</body>
+</html>
